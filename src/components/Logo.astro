@@ -1,0 +1,9 @@
+---
+// The eiilo logo for the top bar, inline, from src/assets/logo-eiilo.svg.
+// (src/assets/logo.svg is the eiilo games logo, drawn in 3D in the hero.)
+import raw from "../assets/logo-eiilo.svg?raw";
+
+const svg = raw.replace(/<\?xml[^>]*\?>\s*/, "").replace("<svg ", '<svg role="img" aria-label="eiilo" ');
+---
+
+<Fragment set:html={svg} />

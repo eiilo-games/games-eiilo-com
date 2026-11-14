@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import { gameGroups } from "../data/games";
+---
+
+<Base title="Sitemap" description="Every page on games.eiilo.com, and each game's own website.">
+  <header class="page-head">
+    <div class="wrap"><h1>Sitemap</h1></div>
+  </header>
+  <div class="wrap column prose">
+    <ul>
+      <li>
+        <a href="/">Games</a>
+        <ul>
+          {
+            gameGroups.map((group) => (
+              <li>
+                {group.title}
+                <ul>
+                  {group.games.map((game) => <li><a href={game.website}>{game.name}</a></li>)}
+                </ul>
+              </li>
+            ))
+          }
+        </ul>
+      </li>
+      <li><a href="/rss.xml">RSS feed</a></li>
+      <li><a href="/sitemap-index.xml">Sitemap for search engines (XML)</a></li>
+      <li><a href="https://eiilo.com/sitemap/">The sitemap of eiilo.com</a>, which lists every eiilo site</li>
+    </ul>
+  </div>
+</Base>
