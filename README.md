@@ -1,9 +1,10 @@
 # games.eiilo.com
 
 The eiilo games website: one page that lists every game with its icon, a
-sentence about it, and links to Google Play and to the game's own site. It
-looks like [eiilo.com](https://eiilo.com) (the `eiilo-com` repository) and
-shares its menu.
+sentence about it, and links to Google Play, to the App Store when the game
+is there, and to the game's own site. It looks like
+[eiilo.com](https://eiilo.com) (the `eiilo-com` repository) and shares its
+menu.
 
 It is a static site built with [Astro](https://astro.build). `npm run build`
 writes plain files to `dist/`, and a GitHub Actions workflow publishes them
@@ -38,6 +39,26 @@ the sitemap at `/sitemap-index.xml`; both are rebuilt on every push.
 
 Check that the Google Play link opens before adding it: a package that isn't
 published yet is a 404.
+
+## When a game comes out on the App Store
+
+Add one line to its entry in `src/data/games.ts`:
+
+```ts
+appStore: apple("mood-dude-infinity", 6829543585),
+```
+
+The two values are the end of the game's App Store address,
+`apps.apple.com/app/<name>/id<number>`; the number is its Apple ID in App
+Store Connect. The card then gets an App Store button, and the count in the
+headline, in the page description and in the feed goes up by itself. Once
+every game has the line, they read "all free on Google Play and the App
+Store".
+
+Check that the game is live first:
+`curl -s "https://itunes.apple.com/lookup?id=<number>&country=us"` answers
+`"resultCount":1` once it is. If its name on the App Store is not its name
+here, say so in its `summary`, as Mood Dude does.
 
 ## Files
 

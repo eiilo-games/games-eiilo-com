@@ -17,12 +17,18 @@ export type Game = {
   summary: string;
   website: string;
   googlePlay: string;
+  /** Its App Store address. Left out until the game is live there. */
+  appStore?: string;
 };
 
 export type GameGroup = { title: string; intro?: string; games: Game[] };
 
 const play = (id: string) =>
   `https://play.google.com/store/apps/details?id=com.eiilo.games.${id}`;
+
+// The name and number at the end of the game's App Store address. There is
+// no country in it, so Apple sends each visitor to their own storefront.
+const apple = (slug: string, id: number) => `https://apps.apple.com/app/${slug}/id${id}`;
 
 // To add a game: put its icon in src/assets/games, import it above,
 // and add an entry to the group it belongs to.
@@ -36,9 +42,10 @@ export const gameGroups: GameGroup[] = [
         name: "Mood Dude",
         icon: moodDude,
         summary:
-          "The original. He runs on his own, you make him jump and change his mood, through levels built by hand.",
+          "The original. He runs on his own, you make him jump and change his mood, through levels built by hand. On the App Store it is called Mood Dude: Color Switch.",
         website: "https://mooddude.app/",
         googlePlay: play("mooddude"),
+        appStore: apple("mood-dude-color-switch", 6829543306),
       },
       {
         name: "Mood Dude: Infinity",
@@ -47,6 +54,7 @@ export const gameGroups: GameGroup[] = [
           "A track that is built as you run and never ends. Every mood switch spends one from your stock, so each change counts.",
         website: "https://mooddude.app/",
         googlePlay: play("mooddudeinfinity"),
+        appStore: apple("mood-dude-infinity", 6829543585),
       },
       {
         name: "Mood Dude: Adventures",
@@ -55,6 +63,7 @@ export const gameGroups: GameGroup[] = [
           "A full platform adventure. Walk, run, climb, swim and stomp across eight island worlds.",
         website: "https://mooddude.app/",
         googlePlay: play("mooddudeadventures"),
+        appStore: apple("mood-dude-adventures", 6829543664),
       },
     ],
   },
@@ -129,3 +138,11 @@ export const gameGroups: GameGroup[] = [
 ];
 
 export const games: Game[] = gameGroups.flatMap((group) => group.games);
+
+// Where to get them, as the end of a sentence ("10 games, …"). Every game is
+// on Google Play; the count for the App Store follows the `appStore` fields.
+const onAppStore = games.filter((game) => game.appStore).length;
+export const stores =
+  onAppStore === games.length
+    ? "all free on Google Play and the App Store"
+    : `all free on Google Play, and ${onAppStore} of them on the App Store too`;

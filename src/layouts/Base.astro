@@ -99,6 +99,11 @@ const footer = [
         <ul>
           {footer.map((item) => <li><a href={item.path}>{item.name}</a></li>)}
         </ul>
+        <p class="marks">
+          Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries and
+          regions. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of
+          Google LLC.
+        </p>
       </div>
     </footer>
     <script>
@@ -106,3 +111,13 @@ const footer = [
     </script>
   </body>
 </html>
+
+<style>
+  /* The stores' credit lines, on a row of their own under the footer links.
+     Here and not in global.css, which is a copy of eiilo.com's. */
+  .marks {
+    flex-basis: 100%;
+    margin: 0;
+    font-size: 0.85rem;
+  }
+</style>
